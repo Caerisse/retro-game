@@ -18,6 +18,7 @@ public class JoinForm {
 
   @NotNull
   @Size(min = 8, max = 256)
+  @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\"#$%&'()*+,\\-.:;<=>?@^_`|~])[A-Za-z\\d!\"#$%&'()*+,\\-.:;<=>?@^_`|~]+$")
   private String password;
 
   public String getEmail() {

@@ -94,11 +94,13 @@ public class BodyCreationServiceImpl implements BodyCreationService {
 
   @Override
   public Body createColony(User user, Coordinates coordinates, Date at) {
+    logger.info("createColony - user={}, coordinates={}, at={}", user.getName(), coordinates.toString(), at.toString());
     var diameter = generatePlanetDiameter(coordinates.getPosition());
     return createPlanet(user, coordinates, "Colony", at, diameter);
   }
 
   private Body createPlanet(User user, Coordinates coordinates, String name, Date at, int diameter) {
+    logger.info("createPlanet - user={}, coordinates={}, name={}, at={}, diameter={}", user.getName(), coordinates.toString(), name, at.toString(), diameter);
     assert coordinates.getKind() == CoordinatesKind.PLANET;
     var position = coordinates.getPosition();
     var temperature = generateTemperature(position);
@@ -119,6 +121,9 @@ public class BodyCreationServiceImpl implements BodyCreationService {
 
   private Body createBody(User user, Coordinates coordinates, String name, Date at, int diameter, int temperature,
                           BodyType type, int image, Resources resources) {
+    logger.info(
+            "createBody - user={}, coordinates={}, name={}, at={}, diameter={}, temperature={}, type={}, image={}, resources={}",
+            user.getName(), coordinates.toString(), name, at.toString(), diameter, temperature, type.name(), image, resources.toString());
     var body = new Body();
     body.setUser(user);
     body.setCoordinates(coordinates);
@@ -157,12 +162,19 @@ public class BodyCreationServiceImpl implements BodyCreationService {
   }
 
   private int generatePlanetDiameter(int position) {
+    logger.info("generatePlanetDiameter - position={}", position);
     ThreadLocalRandom random = ThreadLocalRandom.current();
     double x = Math.abs(8 - position);
+    logger.info("generatePlanetDiameter - x={}", x);
     double mean = 200.0 - 10.0 * x;
+    logger.info("generatePlanetDiameter - mean={}", mean);
     double sd = 60.0 - 5.0 * x;
+    logger.info("generatePlanetDiameter - sd={}", sd);
     double numFields = mean + sd * random.nextGaussian();
+    logger.info("generatePlanetDiameter - numFields={}", numFields);
     numFields = Math.max(numFields, 42.0);
+    logger.info("generatePlanetDiameter - numFields={}", numFields);
+    logger.info("generatePlanetDiameter - diameter={}", (int) (Math.sqrt(numFields) * 100.0) * 10);
     return (int) (Math.sqrt(numFields) * 100.0) * 10;
   }
 

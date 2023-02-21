@@ -923,6 +923,7 @@ class FlightServiceImpl implements FlightServiceInternal {
   }
 
   private void handleColonization(Flight flight) {
+    logger.info("handleColonization");
     User user = flight.getStartUser();
     Coordinates coordinates = flight.getTargetCoordinates();
 

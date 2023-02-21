@@ -1,0 +1,1 @@
+alter table flights add column consumption double precision not null check (consumption >= 0);

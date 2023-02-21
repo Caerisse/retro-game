@@ -168,6 +168,7 @@ create table flights (
   target_galaxy int not null check (target_galaxy between 1 and 5),
   target_system int not null check (target_system between 1 and 500),
   target_position int not null check (target_position between 1 and 15),
+  consumption double precision not null check (consumption >= 0),
   target_kind int,
   party_id bigint references parties,
   departure_at timestamptz not null,

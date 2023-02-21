@@ -451,6 +451,7 @@ class FlightServiceImpl implements FlightServiceInternal {
     Flight flight = new Flight();
     flight.setStartUser(user);
     flight.setStartBody(body);
+    flight.setConsumption(consumption);
 
     long targetUserId = 0;
     long targetBodyId = 0;
@@ -923,7 +924,6 @@ class FlightServiceImpl implements FlightServiceInternal {
   }
 
   private void handleColonization(Flight flight) {
-    logger.info("handleColonization");
     User user = flight.getStartUser();
     Coordinates coordinates = flight.getTargetCoordinates();
 
@@ -999,6 +999,7 @@ class FlightServiceImpl implements FlightServiceInternal {
     activityService.handleBodyActivity(body.getId(), flight.getArrivalAt().toInstant().getEpochSecond());
 
     bodyServiceInternal.updateResourcesAndShipyard(body, flight.getArrivalAt());
+    body.getResources().add(new Resources(0, 0, 0.5 * flight.getConsumption()));
     body.getResources().add(flight.getResources());
 
     deployUnits(flight, body);

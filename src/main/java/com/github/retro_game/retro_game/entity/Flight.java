@@ -1,6 +1,8 @@
 package com.github.retro_game.retro_game.entity;
 
 import com.vladmihalcea.hibernate.type.array.IntArrayType;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -48,6 +50,12 @@ public class Flight {
           column = @Column(name = "target_kind", nullable = false)),
   })
   private Coordinates targetCoordinates;
+
+  @Column(name = "consumption", nullable = false)
+  @Getter
+  @Setter
+  private double consumption;
+
 
   @JoinColumn(name = "party_id")
   @ManyToOne(fetch = FetchType.LAZY)
@@ -149,6 +157,14 @@ public class Flight {
 
   public void setTargetCoordinates(Coordinates targetCoordinates) {
     this.targetCoordinates = targetCoordinates;
+  }
+
+  public double getConsumption() {
+    return this.consumption;
+  }
+
+  public void setConsumption(double consumption) {
+    this.consumption = consumption;
   }
 
   public Party getParty() {

@@ -11,18 +11,18 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-class UpdateRecordsTask {
-  private static final Logger logger = LoggerFactory.getLogger(UpdateRecordsTask.class);
+class UpdateRecords {
+  private static final Logger logger = LoggerFactory.getLogger(UpdateRecords.class);
   private final UserRepository userRepository;
   private final RecordsService recordsService;
 
-  public UpdateRecordsTask(UserRepository userRepository, RecordsService recordsService) {
+  public UpdateRecords(UserRepository userRepository, RecordsService recordsService) {
     this.userRepository = userRepository;
     this.recordsService = recordsService;
   }
 
-  @Scheduled(cron = "0 * * * * *")
-  private void updateRecords() {
+  @Scheduled(cron = "0 5,35 * * * *")
+  private void deleteOldPrivateMessages() {
     logger.info("Updating records");
     List<User> users = userRepository.findAll();
     for (User user : users) {

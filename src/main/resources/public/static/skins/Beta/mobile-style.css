@@ -273,6 +273,13 @@ strong {
   margin: .25rem 0 0 0;
 }
 
+#top-menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 1vmax;
+  padding-top: 2vmax;
+}
+
 #sidebar {
   padding: 1rem;
 }

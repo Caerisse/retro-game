@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Top menu</title>
+</head>
+<body>
+<div class="container">
+  <div>
+    <div>
+      <div th:fragment="top-menu" id="top-menu">
+        <button class="top-menu-item">
+          <a th:href="@{/overview(body=${bodyId})}" th:text="#{overview}">Overview</a>
+        </button>
+        <button class="top-menu-item">
+          <a th:href="@{/flights(body=${bodyId})}" th:text="#{flights}">Flights</a>
+        </button>
+        <button class="top-menu-item">
+          <a th:href="@{/flights/send(body=${bodyId})}" th:text="#{sendFleet}">Send Fleet</a>
+        </button>
+        <button class="top-menu-item">
+          <a th:href="@{/resources(body=${bodyId})}" th:text="#{resources}">Resources</a>
+        </button>
+        <button class="top-menu-item">
+          <a th:href="@{/buildings(body=${bodyId})}" th:text="#{buildings}">Buildings</a>
+        </button>
+        <button class="top-menu-item">
+          <a th:href="@{/technologies(body=${bodyId})}" th:text="#{technologies}">Technologies</a>
+        </button>
+        <button class="top-menu-item">
+          <a th:href="@{/shipyard(body=${bodyId},type=${T(com.github.retro_game.retro_game.dto.UnitTypeDto).FLEET})}"
+             th:text="#{shipyard}">Shipyard</a>
+        </button>
+        <button class="top-menu-item">
+          <a th:href="@{/shipyard(body=${bodyId},type=${T(com.github.retro_game.retro_game.dto.UnitTypeDto).DEFENSE})}"
+             th:text="#{defense}">Defense</a>
+        </button>
+        <button class="top-menu-item">
+          <a th:with="c=${ctx.curBody.coordinates}"
+             th:href="@{/galaxy(body=${bodyId},galaxy=${c.galaxy},system=${c.system})}" th:text="#{galaxy}">Galaxy</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

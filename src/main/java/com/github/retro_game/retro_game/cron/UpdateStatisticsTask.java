@@ -57,7 +57,7 @@ class UpdateStatisticsTask {
     }
     return "" +
         "with p as (" +
-        "      select u.id," +
+        "      select u.id, u.roles," +
         "             coalesce(cast(floor(sum(" + joiner + ") / 1000) as bigint), 0) as p" +
         "        from bodies b" +
         "  right join users u" +
@@ -69,7 +69,8 @@ class UpdateStatisticsTask {
         "            to_timestamp(?)," +
         "            p.p," +
         "            (rank() over (order by p.p desc))" +
-        "       from p";
+        "       from p" +
+        "       where p.roles <> 2";
   }
 
   private static String createUpdateTechnologiesStatisticsSql() {
@@ -84,7 +85,7 @@ class UpdateStatisticsTask {
     }
     return "" +
         "with p as (" +
-        "  select u.id," +
+        "  select u.id, u.roles," +
         "         coalesce(cast(floor((" + joiner + ") / 1000) as bigint), 0) as p" +
         "    from users u" +
         ")" +
@@ -93,7 +94,8 @@ class UpdateStatisticsTask {
         "            to_timestamp(?)," +
         "            p.p," +
         "            (rank() over (order by p.p desc))" +
-        "       from p";
+        "       from p" +
+        "       where p.roles <> 2";
   }
 
   private static String createUpdateUnitsStatisticsSql(String kind, Map<UnitKind, UnitItem> units) {
@@ -107,7 +109,7 @@ class UpdateStatisticsTask {
     }
     return String.format("" +
         "with p as (" +
-        "      select u.id," +
+        "      select u.id, u.roles," +
         "             coalesce(cast(floor(sum(tmp.points) / 1000) as bigint), 0) as p" +
         "        from (select b.user_id as user_id," +
         "                     sum(" + joiner + ") as points" +
@@ -127,7 +129,8 @@ class UpdateStatisticsTask {
         "            to_timestamp(?)," +
         "            p.p," +
         "            (rank() over (order by p.p desc))" +
-        "       from p", kind);
+        "       from p" +
+        "       where p.roles <> 2", kind);
   }
 
   private static String createUpdateOverallStatisticsSql() {

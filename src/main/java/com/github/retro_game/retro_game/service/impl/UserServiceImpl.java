@@ -98,7 +98,7 @@ class UserServiceImpl implements UserServiceInternal {
     // Make the first user an admin.
     int roles = UserRole.USER;
     if (userRepository.count() == 0) {
-      roles |= UserRole.ADMIN;
+      roles = UserRole.ADMIN;
     }
 
     int flags = UserFlag.NUMBER_INPUT_SCROLLING | UserFlag.SHOW_NEW_MESSAGES_IN_OVERVIEW |

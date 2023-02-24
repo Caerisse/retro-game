@@ -381,6 +381,12 @@ class FlightServiceImpl implements FlightServiceInternal {
     }
 
     // Check target user.
+    if (user.getRoles() == UserRole.USER && targetBodyOptional.isPresent() && targetBodyOptional.get().getUser().getRoles() == UserRole.ADMIN) {
+      logger.info("Sending fleet failed, target user is admin: userId={} bodyId={} targetCoordinates={}" +
+                      " mission={}",
+              userId, body.getId(), coordinates, mission);
+      throw new TargetIsAdminException();
+    }
     if (targetBodyOptional.isPresent() && userServiceInternal.isOnVacation(targetBodyOptional.get().getUser())) {
       logger.info("Sending fleet failed, target user is on vacation: userId={} bodyId={} targetCoordinates={}" +
               " mission={}",

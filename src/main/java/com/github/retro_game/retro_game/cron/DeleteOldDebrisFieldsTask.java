@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 class DeleteOldDebrisFieldsTask {
-  private static final int DAYS_BEFORE_DELETION = 3;
+  private static final int DAYS_BEFORE_DELETION = 15;
   private static final Logger logger = LoggerFactory.getLogger(DeleteOldDebrisFieldsTask.class);
   private final JdbcTemplate jdbcTemplate;
   private final String sql;

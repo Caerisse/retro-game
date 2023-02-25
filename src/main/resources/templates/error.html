@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:with="version='@project.version@'">
+    <meta charset="UTF-8">
+    <title th:text="#{errorPage.error}">Error</title>
+    <link
+            th:href="@{/static/skins/{skin}/style.css?{v}(skin=${@environment.getProperty('retro-game.default-skin')},v=${version})}"
+            rel="stylesheet">
+    <script th:src="@{/static/js/jquery-3.5.1.min.js}"></script>
+    <script th:src="@{/static/js/popper-1.16.1.min.js}"></script>
+    <script th:src="@{/static/js/tooltip-1.3.3.min.js}"></script>
+    <script th:src="@{/static/js/retrogame.js?{v}(v=${version})}"></script>
+</head>
+<body>
+<div class="container" th:fragment="error">
+    <div th:switch="${exception ne null and #strings.startsWith(exception, 'com.github.retro_game.retro_game.service.exception')}">
+        <div th:case="true">
+            <h1 th:text="|#{errorPage.error}: ${message}|">Error</h1>
+            <br>
+            <button>
+                <a back-link th:text="#{back}">Go Back</a>
+            </button>
+        </div>
+        <div th:case="false">
+            <h1 th:text="#{errorPage.title}">You encountered an error, please report it to the admins!</h1>
+            <p th:text="#{errorPage.subtitle}">
+                Send them a screenshot of this page showing the date and message of the error most importantly,
+                and tell them what you were trying to do, with that they can find it on the logs and see what happened
+                :D
+            </p>
+            <br>
+            <button>
+                <a back-link th:text="#{back}">Go Back</a>
+            </button>
+            <br>
+            <br>
+            <table>
+                <tr>
+                    <td th:text="#{errorPage.status}">Status</td>
+                    <td class="error-text" th:text="${status}"/>
+                </tr>
+                <tr>
+                    <td th:text="#{errorPage.error}">Error</td>
+                    <td class="error-text" th:text="${error}"/>
+                </tr>
+                <tr>
+                    <td th:text="#{errorPage.message}">Message</td>
+                    <td class="error-text" th:text="${message}"/>
+                </tr>
+                <tr>
+                    <td th:text="#{errorPage.date}">Date</td>
+                    <td class="error-text" th:text="${timestamp}"/>
+                </tr>
+                <tr>
+                    <td th:text="#{errorPage.exception}">Exception</td>
+                    <td class="error-text" th:text="${exception}"/>
+                </tr>
+                <tr>
+                    <td class="trace-title" th:text="#{errorPage.trace}">Trace</td>
+                    <td class="error-text">
+                        <pre class="trace-text" th:text="${trace}"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

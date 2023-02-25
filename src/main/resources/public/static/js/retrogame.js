@@ -75,4 +75,13 @@ $(function () {
       title: self.attr('data-tooltip-title')
     })
   });
+
+  $('[back-link]').each(function () {
+    var self = $(this);
+    self.attr('href', document.referrer);
+    self.click(function () {
+      history.back();
+      return false;
+    });
+  });
 });

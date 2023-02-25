@@ -519,3 +519,11 @@ strong {
 .draw {
   color: #ff0;
 }
+
+.trace-title {
+  vertical-align: top;
+}
+
+.error-text {
+  text-align: left;
+}
